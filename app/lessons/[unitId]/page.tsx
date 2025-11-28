@@ -108,8 +108,83 @@ export default function UnitPage({
   // --- الدوال المساعدة ---
 
   // دالة التحقق من الإنجازات (مختصرة هنا للتركيز على التغييرات الجديدة)
-  const checkAndUnlockAchievements = async () => {
-    // ... (نفس منطق الإنجازات السابق) ...
+const checkAndUnlockAchievements = async () => {
+    if (!user || !unitId) return;
+
+    // 1. التحقق من الإنجازات الرقمية (1، 5، 10 دروس) - (كما كان سابقاً)
+    const { count } = await supabase
+      .from('user_lesson_progress')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('completed', true);
+
+    const achievementsToUnlock: string[] = [];
+    if (count === 1) achievementsToUnlock.push('first_spark');
+    if (count === 5) achievementsToUnlock.push('five_lessons');
+    if (count === 10) achievementsToUnlock.push('ten_lessons');
+
+    // =========================================================
+    // 2. الجديد: التحقق من إنجاز "إنهاء الوحدة الحالية"
+    // =========================================================
+    
+    // أولاً: نحتاج لمعرفة هل لهذه الوحدة إنجاز مرتبط؟ وما هو عدد دروسها الكلي؟
+    const { data: unitData } = await supabase
+      .from('units')
+      .select('linked_achievement_id, lessons(id)')
+      .eq('id', unitId)
+      .single();
+
+    if (unitData?.linked_achievement_id) {
+      // هذه الوحدة لها جائزة! لنتحقق هل أنهى الطالب كل دروسها؟
+      
+      const totalLessonsInUnit = unitData.lessons.length;
+      
+      // جلب عدد الدروس المكتملة في *هذه الوحدة فقط*
+      const lessonIds = unitData.lessons.map((l: any) => l.id);
+      const { count: completedInUnit } = await supabase
+        .from('user_lesson_progress')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('completed', true)
+        .in('lesson_id', lessonIds);
+
+      // هل العدد المكتمل يساوي العدد الكلي؟
+      if (completedInUnit === totalLessonsInUnit) {
+        achievementsToUnlock.push(unitData.linked_achievement_id);
+      }
+    }
+
+    // =========================================================
+    // 3. منح الإنجازات المستحقة (الكود المشترك)
+    // =========================================================
+    for (const achievementId of achievementsToUnlock) {
+      // هل يملكه مسبقاً؟
+      const { data: existing } = await supabase
+        .from('user_achievements')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('achievement_id', achievementId)
+        .maybeSingle();
+
+      if (!existing) {
+        // مبروك!
+        const { error } = await supabase.from('user_achievements').insert({
+            user_id: user.id,
+            achievement_id: achievementId
+        });
+        
+        if (!error) {
+          // جلب تفاصيل الإنجاز لعرض اسمه في التنبيه
+          const { data: achievementDetails } = await supabase
+            .from('achievements')
+            .select('title')
+            .eq('id', achievementId)
+            .single();
+            
+          alert(`🏆 إنجاز مذهل! لقد حصلت على وسام: ${achievementDetails?.title || achievementId}`);
+        }
+      }
+    }
   };
 
   // 1. تحديث الإكمال
