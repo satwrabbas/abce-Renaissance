@@ -20,15 +20,10 @@ export default async function PortfolioPage() {
   const allProjects = projects || [];
 
   return (
-    <main className="min-h-screen bg-slate-950" id="home">
+    <main className="min-h-screen bg-slate-950" >
       
       <Navbar />
 
-      {/* 
-         الهيدر:
-         - موبايل: pt-24 pb-10 (مسافة علوية عشان الناف بار ومسافة سفلية مقبولة)
-         - لابتوب: md:py-24 (نفس مسافتك الأصلية الكبيرة)
-      */}
       <section className="relative pt-24 pb-10 md:py-24 bg-slate-900 border-b border-white/5">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">

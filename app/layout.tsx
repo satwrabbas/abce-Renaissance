@@ -10,7 +10,7 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "ABCE-S | مكتب هندسي عقاري",
+  title: "Our Home | مكتب هندسي عقاري",
   description: "تصميم، إكساء، وتنفيذ مشاريع هندسية في مصياف.",
 };
 

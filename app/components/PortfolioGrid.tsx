@@ -31,7 +31,7 @@ export default function PortfolioGrid({ projects }: PortfolioGridProps) {
       : projects.filter((project) => project.category === activeCategory);
 
   return (
-    <div className="w-full">
+    <div className="w-full" >
       <div className="flex flex-wrap justify-center gap-4 mb-12">
         {categories.map((category) => (
           <button

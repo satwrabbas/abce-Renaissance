@@ -19,11 +19,11 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
       <div className="w-full max-w-md bg-slate-900 border border-white/10 p-8 rounded-2xl shadow-2xl">
         <div className="text-center mb-8">
-          <div className="inline-block rounded-2xl bg-yellow-500/10  mb-4">
-            <div className="relative w-16 h-16">
+          <div className="inline-block rounded-2xl  mb-4">
+            <div className="relative w-30 h-30">
               {" "}
               <Image
-                src="/logo.svg"
+                src="/logo-white.png"
                 alt="Our-Home Logo"
                 fill
                 className="object-cover rounded-xl group-hover:scale-105 transition duration-300"
