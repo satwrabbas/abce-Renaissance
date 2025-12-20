@@ -148,14 +148,16 @@ export default async function ProjectDetails({
                   <div className="p-2.5 md:p-3 bg-green-500/10 text-green-500 rounded-lg shrink-0">
                     <FaRulerCombined className="w-4 h-4 md:w-5 md:h-5" />
                   </div>
-                  <div>
-                    <span className="block text-xs md:text-sm text-slate-500 mb-1">
-                      المساحة التقريبية
-                    </span>
-                    <span className="text-white font-medium text-sm md:text-base">
-                      {project.area || "غير محدد"}
-                    </span>
-                  </div>
+                  {project.area && (
+                    <div>
+                      <span className="block text-xs md:text-sm text-slate-500 mb-1">
+                        المساحة التقريبية
+                      </span>
+                      <span className="text-white font-medium text-sm md:text-base">
+                        {project.area}
+                      </span>
+                    </div>
+                  )}
                 </li>
               </ul>
 
