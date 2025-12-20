@@ -202,6 +202,7 @@ export default function EditProjectPage({
           >
             <option value="بناء سكني">بناء سكني</option>
             <option value="إكساء داخلي">إكساء داخلي</option>
+            <option value="إكساء خارجي">إكساء خارجي</option>
             <option value="تصميم معماري">تصميم معماري</option>
             <option value="تجاري">تجاري</option>
             <option value="ترميم">ترميم</option>

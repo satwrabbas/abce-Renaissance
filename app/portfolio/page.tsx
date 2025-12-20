@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import PortfolioGrid from "../components/PortfolioGrid";
 
 export const metadata = {
-  title: "معرض الأعمال | ABCE-S",
+  title: "معرض الأعمال | Our Home",
   description:
     "تصفح أحدث مشاريعنا الهندسية في مصياف، من التصميم المعماري إلى الإكساء الداخلي.",
 };

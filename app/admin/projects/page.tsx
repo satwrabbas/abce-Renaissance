@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "../../utils/supabase/server";
-import { deleteProject } from "../actions";
 import { FaPlus, FaTrash, FaMapMarkerAlt, FaEdit } from "react-icons/fa";
+import DeleteButton from './DeleteButton';
 
 export default async function ProjectsDashboard() {
+  
   const supabase = await createClient();
 
   const { data: projects } = await supabase
@@ -100,21 +101,10 @@ export default async function ProjectsDashboard() {
                       <span>تعديل</span>
                     </Link>
 
-                    <form action={deleteProject}>
-                      <input type="hidden" name="id" value={project.id} />
-                      <input
-                        type="hidden"
-                        name="image_url"
-                        value={project.image_url}
-                      />
-                      <button
-                        type="submit"
-                        className="flex items-center gap-1 text-red-500 hover:text-red-400 text-sm px-3 py-1.5 rounded-lg hover:bg-red-500/10 transition"
-                      >
-                        <FaTrash size={14} />
-                        <span>حذف</span>
-                      </button>
-                    </form>
+                    <DeleteButton 
+                      id={project.id} 
+                      imageUrl={project.image_url} 
+                    />
                   </div>
                 </div>
               </div>

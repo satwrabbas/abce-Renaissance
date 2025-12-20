@@ -12,6 +12,11 @@ const tajawal = Tajawal({
 export const metadata: Metadata = {
   title: "Our Home | مكتب هندسي عقاري",
   description: "تصميم، إكساء، وتنفيذ مشاريع هندسية في مصياف.",
+  icons: {
+    icon: "/small-logo.png",
+    shortcut: "/small-logo.png",
+    apple: "/small-logo.png",
+  },
 };
 
 export default function RootLayout({

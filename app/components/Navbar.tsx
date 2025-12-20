@@ -28,38 +28,33 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setActiveSection("");
-      return;
-    }
-
-    const handleScrollSpy = () => {
-      const sections = ["home", "about", "services"];
-
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
-          }
-        }
+  const handleHashScroll = () => {
+    // الحصول على الهاش من الرابط (مثلاً #about)
+    const hash = window.location.hash;
+    
+    if (hash && pathname === "/") {
+      const id = hash.replace("#", "");
+      const element = document.getElementById(id);
+      
+      if (element) {
+        // ننتظر قليلاً لضمان استقرار الصفحة بعد الانتقال
+        setTimeout(() => {
+          const yOffset = -80; // تعويض ارتفاع الناف بار
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }, 300); // زيادة الوقت لـ 300ms لضمان نجاح العملية بعد التنقل بين الصفحات
       }
-    };
+    }
+  };
 
-    window.addEventListener("scroll", handleScrollSpy);
+  // تشغيل الدالة عند تغيير المسار (الانتقال من صفحة لأخرى)
+  handleHashScroll();
 
-    handleScrollSpy();
-
-    return () => window.removeEventListener("scroll", handleScrollSpy);
-  }, [pathname]);
+  // تشغيل الدالة عند تغيير الهاش (الضغط على رابط في نفس الصفحة)
+  window.addEventListener("hashchange", handleHashScroll);
+  
+  return () => window.removeEventListener("hashchange", handleHashScroll);
+}, [pathname]); // سيعمل في كل مرة يتغير فيها المسار
 
   if (pathname.startsWith("/admin") || pathname.startsWith("/login")) {
     return null;
@@ -78,7 +73,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         scrolled
           ? "bg-slate-900/90 backdrop-blur-md border-white/10 shadow-lg"
-          : "bg-transparent border-transparent py-4 md:py-5"
+          : "bg-transparent border-transparent py-4 md:py-4"
       }`}
       id="home"
     >

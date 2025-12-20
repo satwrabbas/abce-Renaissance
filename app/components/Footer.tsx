@@ -146,7 +146,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-right gap-4 md:gap-0">
+        <div className="border-t border-white/5 pt-2 md:pt-4 flex flex-col md:flex-row justify-between items-center text-center md:text-right gap-4 md:gap-0">
           <p className="text-slate-500 text-xs md:text-sm">
             © {new Date().getFullYear()} Our Home Engineering. جميع الحقوق
             محفوظة.
