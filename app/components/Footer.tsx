@@ -140,7 +140,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 text-slate-400">
                 <FaEnvelope className="text-yellow-500 shrink-0" />
-                <span className="break-all">info@abce-s.com</span>
+                <span className="break-all">ourhome.msyaf@gmail.com</span>
               </li>
             </ul>
           </div>
